@@ -1,0 +1,62 @@
+:host {
+    display: block;
+    padding: 20px;
+    background-color: #fafafa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls input,
+.controls button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+.controls button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.controls button:hover {
+    background-color: #0056b3;
+}
+
+.trip-visualization {
+    overflow-x: auto;
+    padding-bottom: 20px;
+    border-top: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+}
+
+svg {
+    display: block;
+    margin: 0 auto;
+}
+
+circle {
+    transition: fill 0.3s ease;
+}
+
+circle:hover {
+    stroke: #333;
+    stroke-width: 2;
+}
+
+.label {
+    font-size: 12px;
+    fill: #333;
+    font-weight: 500;
+}

@@ -1,0 +1,40 @@
+<div class="controls">
+    <input placeholder="Start Point" [(ngModel)]="start" />
+    <input placeholder="End Point" [(ngModel)]="end" />
+    <button (click)="addTrip()">Add Trip</button>
+    <button (click)="clearTrips()">Clear All Trips</button>
+</div>
+
+<div class="trip-visualization">
+    <svg [attr.width]="tripsList.length * 200 + 100" height="300">
+        <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+            </marker>
+        </defs>
+
+        <ng-container *ngFor="let seg of tripsList; let i = index">
+            <circle [attr.cx]="i * 200 + 50" [attr.cy]="seg.level" r="6" [attr.fill]="seg.color" />
+            <text [attr.x]="i * 200 + 20" [attr.y]="seg.level + 25" class="label">
+                {{ seg.start }} - {{ seg.end }}
+            </text>
+
+            <ng-container *ngIf="i < tripsList.length - 1">
+                <ng-container [ngSwitch]="tripsList[i + 1].type">
+                    <line *ngSwitchCase="'continued'" [attr.x1]="i * 200 + 50" [attr.y1]="seg.level"
+                        [attr.x2]="(i + 1) * 200 + 50" [attr.y2]="seg.level" [attr.stroke]="tripsList[i + 1].color"
+                        stroke-width="2" />
+                    <line *ngSwitchCase="'non-continued'" [attr.x1]="i * 200 + 50" [attr.y1]="seg.level"
+                        [attr.x2]="(i + 1) * 200 + 50" [attr.y2]="seg.level" [attr.stroke]="tripsList[i + 1].color"
+                        stroke-width="2" marker-end="url(#arrow)" />
+                    <path *ngSwitchCase="'duplicate'" [attr.d]="
+                'M' + (i * 200 + 50) + ',' + seg.level +
+                ' C' + (i * 200 + 120) + ',' + (seg.level - 70) + 
+                ' ' + ((i + 1) * 200 - 70) + ',' + (seg.level - 70) +
+                ' ' + ((i + 1) * 200 + 50) + ',' + tripsList[i + 1].level
+              " [attr.stroke]="tripsList[i + 1].color" stroke-width="2" fill="none" />
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </svg>
+</div>
